@@ -1,15 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const messages = ['Elina', 'Kristina'];
-
-const Message = props => <div>{props.text}</div>;
-
-const MessageList = props => {
-  return props.messages.map((message, idx) => <Message text={message} key={idx} />)
-};
+import { Messenger } from 'components/Messenger';
 
 ReactDOM.render(
-  <MessageList messages={messages} />,
+  <Messenger />,
   document.getElementById('root')
 );
