@@ -21,10 +21,10 @@ class MessengerContainer extends PureComponent {
   }
 
   render() {
-    const { chats, messages } = this.props;
+    const { messages } = this.props;
 
     return (
-      <Messenger sendMessage={this.handleMessageSend} chats={chats} messages={messages} />
+      <Messenger sendMessage={this.handleMessageSend} messages={messages} />
     );
   }
 }
@@ -40,7 +40,6 @@ function mapStateToProps(state, ownProps) {
   }
 
   return {
-    chats: chats.map((entry) => ({ name: entry.get('name'), link: `/chats/${entry.get('id')}` })).toList().toJS(),
     messages,
     chatId: match ? match.params.id : null,
   }
