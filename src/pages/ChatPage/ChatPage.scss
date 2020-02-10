@@ -1,0 +1,9 @@
+.chat-page {
+  width: 80%;
+  height: 100%;
+  margin: auto;
+
+  &__chat {
+    display: flex;
+  }
+}
