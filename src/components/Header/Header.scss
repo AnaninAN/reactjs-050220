@@ -1,0 +1,18 @@
+.header {
+  display: flex;
+  height: 55px;
+  background-color: lightblue;
+
+  &-lc {
+    width: 330px;
+    padding: 10px;
+  }
+
+  &-pc {
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    font-size: 25px;
+    font-weight: 900;
+  }
+}

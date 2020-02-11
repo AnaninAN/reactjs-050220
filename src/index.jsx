@@ -1,15 +1,20 @@
+import 'assets/style.scss';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
 
-const messages = ['Elina', 'Kristina'];
-
-const Message = props => <div>{props.text}</div>;
-
-const MessageList = props => {
-  return props.messages.map((message, idx) => <Message text={message} key={idx} />)
-};
+import { routes } from './routes';
+import { store } from './store';
 
 ReactDOM.render(
-  <MessageList messages={messages} />,
+  <Provider store={store}>
+    <BrowserRouter>
+      <Switch>
+        {routes.map((route, idx) => <Route key={idx} {...route} />)}
+      </Switch>
+    </BrowserRouter>
+  </Provider>,
   document.getElementById('root')
 );
