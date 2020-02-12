@@ -4,4 +4,10 @@
   background-color: beige;
   padding: 20px;
   overflow-y: scroll;
+
+  &__del {
+    width: 35px!important;
+    height: 30px!important;
+    margin-left: 20px!important;
+  }
 }

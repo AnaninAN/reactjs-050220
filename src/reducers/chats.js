@@ -1,7 +1,7 @@
 import { handleActions } from 'redux-actions';
-import { Map, fromJS } from 'immutable';
+import { Map, fromJS, remove } from 'immutable';
 
-import { load, send, add } from 'actions/chats';
+import { load, send, add, del } from 'actions/chats';
 
 const initialState = new Map({
   loading: false,
@@ -9,30 +9,14 @@ const initialState = new Map({
 });
 
 export const chatsReducer = handleActions({
-  [load]: (state, actions) => {
-    return state.set('entries', fromJS({
-      '1': {
-        id: 1,
-        messages: [
-          {author: 'Bot', text: 'Это чат №1'}
-        ],
-        name: 'Chat 1',
-      },
-      '2': {
-        id: 2,
-        messages: [
-          {author: 'Bot', text: 'Это чат №2'}
-        ],
-        name: 'Chat 2',
-      },
-      '3': {
-        id: 3,
-        messages: [
-          {author: 'Bot', text: 'Это чат №3'}
-        ],
-        name: 'Chat 3',
-      }
-    }));
+  [load]: (state, action) => {
+    const entries = action.payload.reduce((acc, item) => {
+      acc[item._id] = item;
+
+      return acc;
+    }, {});
+
+    return state.set('entries', fromJS(entries));
   },
   [send]: (state, action) => {
     const { chatId, ...message } = action.payload;
@@ -40,12 +24,13 @@ export const chatsReducer = handleActions({
     return state.mergeIn(['entries', chatId, 'messages'], message);
   },
   [add]: (state, action) => {
-    const { name, chatId } = action.payload;
+    const { _id } = action.payload;
 
-    return state.setIn(['entries', chatId.toString()], fromJS({
-      id: chatId,
-      messages: [{ author: 'Bot', text: `Привет, я бот! Вы создали чат ${name}` }],
-      name,
-    }));
+    return state.setIn(['entries', _id], fromJS(action.payload));
+  },
+  [del]: (state, action) => {
+    const { chatId } = action.payload;
+
+    return state.deleteIn(['entries', chatId]);
   },
 }, initialState);

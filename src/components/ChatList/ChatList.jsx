@@ -8,16 +8,17 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 export class ChatList extends Component {
   render() {
-    const { chats } = this.props;
+    const { chats, delChat } = this.props;
 
     return (
      <div className="chat-list">
       <List>
         {chats.map((chat, idx) => (
-          <ListItem key={idx}>
+          <ListItem key={chat.id}>
             <Link to={chat.link}>
               <ListItemText primary={chat.name}></ListItemText>
             </Link>
+            <button id={chat.id} className="chat-list__del" onClick={delChat}>x</button>
           </ListItem>
         ))}
       </List>

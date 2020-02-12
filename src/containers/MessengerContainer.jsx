@@ -2,13 +2,13 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
 import { Messenger } from 'components/Messenger';
-import { load, send } from 'actions/chats';
+import { listen, sendMessage } from 'actions/chats';
 
 class MessengerContainer extends PureComponent {
   componentDidMount() {
-    const { loadChats } = this.props;
+    const { listen } = this.props;
 
-    loadChats();
+    listen();
   }
 
   handleMessageSend = (message) => {
@@ -16,7 +16,8 @@ class MessengerContainer extends PureComponent {
 
     sendMessage({
       ...message,
-      chatId
+      chatId,
+      timeStamp: new Date(),
     });
   }
 
@@ -47,8 +48,8 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    loadChats: () => dispatch(load()),
-    sendMessage: (message) => dispatch(send(message)),
+    listen: () => dispatch(listen()),
+    sendMessage,
   }
 }
 
